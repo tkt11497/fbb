@@ -32,7 +32,7 @@
                                         <span class="ml-2">會員帳號 :</span>
                                     </div>
                                     <div class="d-flex justify-start align-center" style="width:75%;height:100%;">
-                                        <span class="ml-2" style="font-weight:bold">213212313131@gmail.comasdkjaklj.asda</span>
+                                        <span class="ml-2" style="font-weight:bold;max-width: 97%;">213212313131@gmail.comasdkjak</span>
                                     </div>
                                 </v-card>
                             </v-col>
@@ -47,7 +47,7 @@
                                         <span class="ml-2">推薦人帳號: </span>
                                     </div>
                                     <div class="d-flex justify-start align-center" style="width:75%;height:100%;">
-                                        <span class="ml-2" style="font-weight:bold">213212313131@gmail.comasdkjaklj.asda</span>
+                                        <span class="ml-2" style="font-weight:bold;max-width: 97%;">213212313131@gmail.comasdkjakl</span>
                                     </div>
                                 </v-card>
                             </v-col>
@@ -58,7 +58,7 @@
                                         <!-- regs time -->
                                     </div>
                                     <div class="d-flex justify-start align-center" style="width:75%;height:100%;">
-                                        <span class="ml-2" style="font-weight:bold"> 2020/09/15 12:20:25</span>
+                                        <span class="ml-2" style="font-weight:bold;max-width: 97%;"> 2020/09/15 12:20:25</span>
                                     </div>
                                 </v-card>
                             </v-col>
@@ -72,7 +72,7 @@
                                         <span class="ml-2">區塊鏈錢包:   </span>
                                     </div>
                                     <div class="d-flex justify-start align-center" style="width:75%;height:100%;">
-                                        <span class="ml-2" style="font-weight:bold"> 0x131223231324545461321325464</span>
+                                        <span class="ml-2" style="font-weight:bold;max-width: 97%;"> 0x131223231324545461321325464</span>
                                     </div>
                                 </v-card>
                             </v-col>

@@ -24,18 +24,18 @@
         </v-row>
       
          
-                        <v-row no-gutters class="mx-4 mt-5">
-                            <v-col :sm='12' :md="7"  >
+                        <v-row no-gutters class="mx-4 mt-4">
+                            <v-col :sm='12' :md="7" class="mt-1" >
                                 <v-card min-width="280px" style="height:40px;background-color:#9ABDE4;" class="d-flex" >
                                     <div class="d-flex justify-start align-center" style="width:25%;height:100%;">
                                         <span class="ml-2">遊戲編號 :</span>
                                     </div>
-                                    <div class="d-flex justify-start align-center" style="width:75%;height:100%;">
-                                        <span class="ml-2" style="font-weight:bold">21321231313112</span>
+                                    <div class="d-flex justify-start align-center " style="width:75%;height:100%;">
+                                        <span class="ml-2 " style="font-weight:bold;max-width: 97%;">21321231313112aasaasaaasasa</span>
                                     </div>
                                 </v-card>
                             </v-col>
-                            <v-col  :sm='12' :md="5" >
+                            <v-col  :sm='12' :md="5" class="mt-1" >
                                 <v-card min-width="280px" style="height:40px;background-color:#9ABDE4;" class="d-flex ml-1" >
                                     <div class="d-flex justify-start align-center" style="width:25%;height:100%;">
                                         <span class="ml-2">得獎寶貝 :</span>
@@ -86,9 +86,9 @@
                             
                         </v-row> 
                        
-                        <v-row no-gutters class="mx-4 mt-1">
-                            <v-col :md="6" :sm='12' >
-                                <v-card min-width="280px" style="height:40px;background-color:#9ABDE4;" class="d-flex" >
+                        <v-row no-gutters class="mx-4 ">
+                            <v-col :md="6" :sm='12' class="mt-1" >
+                                <v-card min-width="280px" style="height:40px;background-color:#9ABDE4;" class="d-flex " >
                                     <div class="d-flex justify-start align-center" style="width:50%;height:100%;">
                                         <span class="ml-2">開始時間:   </span>
                                     </div>
@@ -97,7 +97,7 @@
                                     </div>
                                 </v-card>
                             </v-col>
-                             <v-col :md="6" :sm='12' >
+                             <v-col :md="6" :sm='12'  class="mt-1">
                                 <v-card min-width="280px" style="height:40px;background-color:#9ABDE4;" class="d-flex ml-1" >
                                     <div class="d-flex justify-start align-center" style="width:50%;height:100%;">
                                         <span class="ml-2">結束時間 :  </span>
@@ -110,8 +110,8 @@
                             
                             
                         </v-row> 
-                         <v-row no-gutters class="mx-4 mt-1">
-                            <v-col :md="6" :sm='12' >
+                         <v-row no-gutters class="mx-4 ">
+                            <v-col :md="6" :sm='12'  class="mt-1">
                                 <v-card min-width="280px" style="height:40px;background-color:#9ABDE4;" class="d-flex" >
                                     <div class="d-flex justify-start align-center" style="width:50%;height:100%;">
                                         <span class="ml-2">總投入彩金 :  </span>
@@ -121,7 +121,7 @@
                                     </div>
                                 </v-card>
                             </v-col>
-                             <v-col :md="6" :sm='12' >
+                             <v-col :md="6" :sm='12' class="mt-1" >
                                 <v-card min-width="280px" style="height:40px;background-color:#9ABDE4;" class="d-flex ml-1" >
                                     <div class="d-flex justify-start align-center" style="width:50%;height:100%;">
                                         <span class="ml-2">總派獎彩金 :  </span>

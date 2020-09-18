@@ -24,7 +24,8 @@
                                           <v-row no-gutters style="height:40px" justify="end" v-if="unLockarr.includes(n)">
                                             <v-text-field color="black" outlined 
                                                     type="text" background-color="white" dense  
-                                                    v-model="userWallet[k]"
+                                                    v-model="userWallet[k]" 
+                                                    class="mr-1"
                                                 > 
                                                 </v-text-field>
                                           </v-row>
@@ -57,6 +58,7 @@
     .fontSize{
         font-size: 11px;
     }
+
 </style>
 <script>
 export default {
