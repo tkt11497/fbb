@@ -37,7 +37,7 @@
                             <v-col cols="3"></v-col>
                         </v-row> 
                         <hr class="mx-4" style="height:3px;background-color:#4472C4;border-width:0;">
-                        <v-row  class="ma-4" dense v-for="n in 5" :key="n">
+                        <v-row  class="mx-4 my-1" dense v-for="n in 10" :key="n">
                             <v-col cols="3">123132312312</v-col>
                             <v-col cols="3"> 2020/09/14  11:59:05</v-col>
                              <v-col cols="3"> 100</v-col>

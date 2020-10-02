@@ -25,18 +25,28 @@
         </v-row>
       
          
-                        <v-row no-gutters class="mx-4 mt-5">
-                            <v-col :md="6" :sm='12' >
+                        <v-row no-gutters class="mx-4 mt-4">
+                            <v-col :md="6" :sm='12' class="mt-1" >
                                 <v-card style="height:40px;background-color:#9ABDE4;" class="d-flex" >
                                     <div class="d-flex justify-start align-center" style="width:25%;height:100%;">
                                         <span class="ml-2">會員帳號 :</span>
                                     </div>
                                     <div class="d-flex justify-start align-center" style="width:75%;height:100%;">
-                                        <span class="ml-2" style="font-weight:bold;max-width: 97%;">213212313131@gmail.comasdkjak</span>
+                                        <span class="ml-2" style="font-weight:bold;max-width: 97%;">213212313131@gmail.comasdkjaksadss</span>
                                     </div>
                                 </v-card>
                             </v-col>
-                            
+                               <v-col :md="6" :sm='12' class="mt-1">
+                                <v-card class="ml-2 d-flex" style="height:40px;background-color:#9ABDE4;" >
+                                    <div class="d-flex justify-start align-center" style="width:25%;height:100%;">
+                                        <span class="ml-2">最近登入時間: </span>
+                                        <!-- regs time -->
+                                    </div>
+                                    <div class="d-flex justify-start align-center" style="width:75%;height:100%;">
+                                        <span class="ml-2" style="font-weight:bold;max-width: 97%;"> 2020/09/15 12:20:25</span>
+                                    </div>
+                                </v-card>
+                            </v-col>
                             
                         </v-row> 
                         <v-row no-gutters class="mx-4">
@@ -80,14 +90,120 @@
                             
                         </v-row> 
                         <v-expansion-panels class="mx-4 mt-1">
+                             <v-expansion-panel 
+                            class="mx-4 mt-1" 
+                             style="background-color:#9ABDE4"
+                            >
+                            <v-expansion-panel-header >
+                                購買紀錄:
+                                <template v-slot:actions>
+                                    <v-icon x-large color="primary">$expand</v-icon>
+                                </template>
+                             </v-expansion-panel-header>
+                            <v-expansion-panel-content>
+                                 <v-flex  xs12 md12  class="mt-1">
+                                                <v-card flat  color="#9ABDE4" min-height="35vh" >
+                                                    <v-card  flat min-height="30vh" color="#9ABDE4">
+                                                                <v-row>
+                                                                    <v-col cols="3">局號 </v-col>
+                                                                    <v-col cols="3">  購買時間 </v-col>
+                                                                    <v-col cols="2">張數</v-col>
+                                                                    <v-col cols="2"> 寶寶 </v-col>
+                                                                    <v-col cols="2"> 遊戲結果</v-col>
+                                                                </v-row> 
+                                                                <hr  style="height:3px;background-color:#4472C4;border-width:0;">
+                                                                <v-row  class="my-1" dense v-for="n in 10" :key="n">
+                                                                    <v-col cols="3">682期 </v-col>
+                                                                    <v-col cols="3">2020/09/15 12:14 </v-col>
+                                                                    <v-col cols="2">10</v-col>
+                                                                    <v-col cols="2">豪哥</v-col>
+                                                                    <v-col cols="2">豪哥勝</v-col>
+                                                                </v-row> 
+                                                    </v-card>
+                                                    <v-row no-gutters  justify="center" align="center">
+                                                        
+                                                        <v-btn icon x-large color="#4472C4" style="transform:rotateY(180deg)" @click="changePage('-')"> 
+                                                            <v-icon x-large>forward</v-icon>
+                                                        </v-btn>
+                                                        <div style="height:40px;width:50px;">
+                                                        <v-text-field
+                                                            single-line
+                                                            solo 
+                                                            class="pa-0 ma-0"
+                                                            dense  
+                                                            v-model="pageNumber"
+                                                        ></v-text-field>
+                                                        </div>
+                                                        <span> /100</span>
+                                                        <v-btn icon x-large color="#4472C4" @click="changePage('+')">
+                                                            <v-icon x-large>forward</v-icon>
+                                                        </v-btn>
+                                                    </v-row>
+                                                </v-card>
+                                            </v-flex>
+                            </v-expansion-panel-content>
+                            </v-expansion-panel>
+                              <v-expansion-panel 
+                                        class="mx-4 mt-1" 
+                                        style="background-color:#9ABDE4"
+                                        >
+                                        <v-expansion-panel-header >
+                                           出入金紀錄:
+                                            <template v-slot:actions>
+                                                <v-icon x-large color="primary">$expand</v-icon>
+                                            </template>
+                                        </v-expansion-panel-header>
+                                        <v-expansion-panel-content>
+                                            <v-flex  xs12 md12  class="mt-1">
+                                                            <v-card flat  color="#9ABDE4" min-height="35vh" >
+                                                                <v-card  flat min-height="30vh" color="#9ABDE4">
+                                                                            <v-row>
+                                                                                <v-col cols="2">入/出 </v-col>
+                                                                                <v-col cols="3">   日期 </v-col>
+                                                                                <v-col cols="2">數量</v-col>
+                                                                                <v-col cols="5">  錢包地址 </v-col>
+                                                                                
+                                                                            </v-row> 
+                                                                            <hr  style="height:3px;background-color:#4472C4;border-width:0;">
+                                                                            <v-row  class="my-1" dense v-for="n in 10" :key="n">
+                                                                                <v-col cols="2">出金 </v-col>
+                                                                                <v-col cols="3">2020/09/15 12:14 </v-col>
+                                                                                <v-col cols="2">1000 </v-col>
+                                                                                <v-col cols="5">slsdkajdlkjdlkajlkdj</v-col>
+                                                                              
+                                                                            </v-row> 
+                                                                </v-card>
+                                                                <v-row no-gutters  justify="center" align="center">
+                                                                    
+                                                                    <v-btn icon x-large color="#4472C4" style="transform:rotateY(180deg)" @click="changePage('-')"> 
+                                                                        <v-icon x-large>forward</v-icon>
+                                                                    </v-btn>
+                                                                    <div style="height:40px;width:50px;">
+                                                                    <v-text-field
+                                                                        single-line
+                                                                        solo 
+                                                                        class="pa-0 ma-0"
+                                                                        dense  
+                                                                        v-model="pageNumber"
+                                                                    ></v-text-field>
+                                                                    </div>
+                                                                    <span> /100</span>
+                                                                    <v-btn icon x-large color="#4472C4" @click="changePage('+')">
+                                                                        <v-icon x-large>forward</v-icon>
+                                                                    </v-btn>
+                                                                </v-row>
+                                                            </v-card>
+                                                        </v-flex>
+                                        </v-expansion-panel-content>
+                            </v-expansion-panel>
                             <v-expansion-panel
-                            v-for="(item,i) in 3"
+                            v-for="(item,i) in items"
                             :key="i" 
                             class="mx-4 mt-1" 
                              style="background-color:#9ABDE4"
                             >
                             <v-expansion-panel-header >
-                                獨贏分紅:
+                                {{item}}
                                 <template v-slot:actions>
                                     <v-icon x-large color="primary">$expand</v-icon>
                                 </template>
@@ -102,7 +218,7 @@
                                                                     <v-col cols="4"></v-col>
                                                                 </v-row> 
                                                                 <hr  style="height:3px;background-color:#4472C4;border-width:0;">
-                                                                <v-row  class="my-4" dense v-for="n in 2" :key="n">
+                                                                <v-row  class="my-1" dense v-for="n in 10" :key="n">
                                                                     <v-col cols="4">2020/09/15 12:54 </v-col>
                                                                     <v-col cols="4"> 1000</v-col>
                                                                     <v-col cols="4">
@@ -160,6 +276,7 @@ export default {
                     href: '/memberList/memberDetail/123',
                     },
                 ],
+            items:['獨贏分紅:','座位分紅:','推薦分紅:']
         }
     },
     methods:{

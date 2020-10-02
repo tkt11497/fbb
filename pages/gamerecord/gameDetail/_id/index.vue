@@ -147,7 +147,7 @@
                                                                     <v-col cols="4">   HASH增加彩金數</v-col>
                                                                 </v-row> 
                                                                 <hr class="mx-4" style="height:3px;background-color:#4472C4;border-width:0;">
-                                                                <v-row  class="ma-4" dense v-for="n in 2" :key="n">
+                                                                <v-row  class="mx-4 my-1" dense v-for="n in 10" :key="n">
                                                                     <v-col cols="4">alskdjalsjdlkas </v-col>
                                                                     <v-col cols="4">  dasds@gmai.com.asdada </v-col>
                                                                     <v-col cols="4">  10000
