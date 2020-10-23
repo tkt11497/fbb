@@ -43,9 +43,9 @@
             class="d-flex justify-start align-center"
             style="width: 75%; height: 100%"
           >
-            <span class="ml-2" style="font-weight: bold; max-width: 97%"
-              >{{memberInfo.username}}</span
-            >
+            <span class="ml-2" style="font-weight: bold; max-width: 97%">{{
+              memberInfo.username
+            }}</span>
           </div>
         </v-card>
       </v-col>
@@ -66,7 +66,7 @@
             style="width: 75%; height: 100%"
           >
             <span class="ml-2" style="font-weight: bold; max-width: 97%">
-              {{memberInfo.login_date}}</span
+              {{ memberInfo.login_date }}</span
             >
           </div>
         </v-card>
@@ -85,9 +85,9 @@
             class="d-flex justify-start align-center"
             style="width: 75%; height: 100%"
           >
-            <span class="ml-2" style="font-weight: bold; max-width: 97%"
-              >{{memberInfo.recommender}}</span
-            >
+            <span class="ml-2" style="font-weight: bold; max-width: 97%">{{
+              memberInfo.recommender
+            }}</span>
           </div>
         </v-card>
       </v-col>
@@ -108,7 +108,7 @@
             style="width: 75%; height: 100%"
           >
             <span class="ml-2" style="font-weight: bold; max-width: 97%">
-              {{memberInfo.created_date}}</span
+              {{ memberInfo.created_date }}</span
             >
           </div>
         </v-card>
@@ -128,7 +128,7 @@
             style="width: 75%; height: 100%"
           >
             <span class="ml-2" style="font-weight: bold; max-width: 97%">
-              {{memberInfo.wallet}}</span
+              {{ memberInfo.wallet }}</span
             >
           </div>
         </v-card>
@@ -198,20 +198,19 @@
       </v-expansion-panel>
       <v-expansion-panel class="mx-4 mt-1" style="background-color: #9abde4">
         <v-expansion-panel-header>
-          出入金紀錄:
+          入金紀錄:
           <template v-slot:actions>
             <v-icon x-large color="primary">$expand</v-icon>
           </template>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-flex xs12 md12 class="mt-1">
-            <v-card flat color="#9ABDE4" min-height="35vh">
-              <v-card flat min-height="30vh" color="#9ABDE4">
+            <v-card flat color="#9ABDE4">
+              <v-card flat color="#9ABDE4">
                 <v-row>
-                  <v-col cols="2">入/出 </v-col>
                   <v-col cols="3"> 日期 </v-col>
-                  <v-col cols="2">數量</v-col>
-                  <v-col cols="5"> 錢包地址 </v-col>
+                  <v-col cols="3">數量</v-col>
+                  <v-col cols="6"> 錢包地址 </v-col>
                 </v-row>
                 <hr
                   style="
@@ -220,11 +219,81 @@
                     border-width: 0;
                   "
                 />
-                <v-row class="my-1" dense v-for="n in 10" :key="n">
-                  <v-col cols="2">出金 </v-col>
-                  <v-col cols="3">2020/09/15 12:14 </v-col>
-                  <v-col cols="2">1000 </v-col>
-                  <v-col cols="5">slsdkajdlkjdlkajlkdj</v-col>
+                <v-row
+                  class="my-1"
+                  dense
+                  v-for="deposit in depositRowset"
+                  :key="deposit.id"
+                >
+                  <v-col cols="3">{{
+                    timestampToDate(deposit.timestamps)
+                  }}</v-col>
+                  <v-col cols="3">{{ deposit.balance }} </v-col>
+                  <v-col cols="6">{{ deposit.hash }}</v-col>
+                </v-row>
+              </v-card>
+              <v-row no-gutters justify="center" align="center">
+                <v-btn
+                  icon
+                  x-large
+                  color="#4472C4"
+                  style="transform: rotateY(180deg)"
+                  @click="changePage('-')"
+                >
+                  <v-icon x-large>forward</v-icon>
+                </v-btn>
+                <div style="height: 40px; width: 50px">
+                  <v-text-field
+                    single-line
+                    solo
+                    class="pa-0 ma-0"
+                    dense
+                    v-model="pageNumber"
+                  ></v-text-field>
+                </div>
+                <span> /100</span>
+                <v-btn icon x-large color="#4472C4" @click="changePage('+')">
+                  <v-icon x-large>forward</v-icon>
+                </v-btn>
+              </v-row>
+            </v-card>
+          </v-flex>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+      <v-expansion-panel class="mx-4 mt-1" style="background-color: #9abde4">
+        <v-expansion-panel-header>
+          出金紀錄:
+          <template v-slot:actions>
+            <v-icon x-large color="primary">$expand</v-icon>
+          </template>
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-flex xs12 md12 class="mt-1">
+            <v-card flat color="#9ABDE4">
+              <v-card flat color="#9ABDE4">
+                <v-row>
+                  <v-col cols="3"> 日期 </v-col>
+                  <v-col cols="3">數量</v-col>
+                  <v-col cols="6"> 錢包地址 </v-col>
+                </v-row>
+                <hr
+                  style="
+                    height: 3px;
+                    background-color: #4472c4;
+                    border-width: 0;
+                  "
+                />
+                <v-row
+                  class="my-1"
+                  dense
+                  v-for="withdraw in withdrawRowset"
+                  :key="withdraw.id"
+                >
+                  <v-col cols="3">{{
+                    timestampToDate(withdraw.timestamps)
+                  }}</v-col>
+                  <v-col cols="3">{{ withdraw.balance }} </v-col>
+                  <v-col cols="6">{{ withdraw.hash }}</v-col>
                 </v-row>
               </v-card>
               <v-row no-gutters justify="center" align="center">
@@ -326,7 +395,8 @@
 }
 </style>
 <script>
-const axios = require('axios');
+const axios = require("axios");
+const moment = require("moment");
 export default {
   data() {
     return {
@@ -344,16 +414,26 @@ export default {
         },
       ],
       items: ["獨贏分紅:", "座位分紅:", "推薦分紅:"],
-      memberInfo: {}
+      memberInfo: {},
+      depositRowset: [],
     };
   },
-  asyncData(context){
-        return axios.get(`http://13.88.221.88:8002/api/v1/back/account/${context.params.id}`).then(
-            res => {
-                return { memberInfo: res.data.data}
-            }
-        )
-    },
+  async asyncData({ params, env }) {
+    const memberInfo = await axios.get(
+      `${env.ApiUrl}/v1/back/account/${params.id}`
+    );
+    const depositRes = await axios.get(
+      `${env.ApiUrl}/v1/back/deposit/${params.id}`
+    );
+    const withdrawRes = await axios.get(
+      `${env.ApiUrl}/v1/back/withdraw/${params.id}`
+    );
+    return {
+      memberInfo: memberInfo.data.data,
+      depositRowset: depositRes.data.data,
+      withdrawRowset: withdrawRes.data.data,
+    };
+  },
   methods: {
     searchMembers() {
       console.log("searchmember");
@@ -375,6 +455,9 @@ export default {
             break;
         }
       }
+    },
+    timestampToDate(timestamp) {
+      return moment.unix(timestamp).format("YYYY-MM-DD HH:mm:ss");
     },
   },
   watch: {

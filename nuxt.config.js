@@ -1,6 +1,9 @@
 import colors from 'vuetify/es5/util/colors'
-
+require('dotenv').config({path: '.env'})
 export default {
+  env:{
+    ApiUrl: process.env.API_URL || "http://13.88.221.88:8002/api",
+  },
   /*
   ** Nuxt rendering mode
   ** See https://nuxtjs.org/api/configuration-mode
@@ -54,6 +57,7 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/dotenv'
   ],
   /*
   ** vuetify module configuration
