@@ -36,12 +36,12 @@
                             <v-col cols="4"></v-col>
                         </v-row> 
                         <hr class="mx-4" style="height:3px;background-color:#4472C4;border-width:0;">
-                        <v-row  class="ma-4" dense v-for="n in 8" :key="n">
-                            <v-col cols="4">123132312312@gmail.com.xxxxxxx </v-col>
-                            <v-col cols="4"> 2020/09/14  11:59:05</v-col>
+                        <v-row  class="ma-4" dense v-for="member in memberRowset" :key="member.id">
+                            <v-col cols="4">{{member.username}}</v-col>
+                            <v-col cols="4">{{member.created_date}}</v-col>
                             <v-col cols="4">
                                 <v-row no-gutters justify="end" class="mr-3">
-                                    <v-btn @click="$router.push('/memberList/memberDetail/123')">
+                                    <v-btn @click="$router.push(`/memberList/memberDetail/${member.id}`)">
                                         <span style="font-weight:bold">詳細</span>
                                         <!-- detail -->
                                     </v-btn>
@@ -73,11 +73,20 @@
  </v-container>
 </template>
 <script>
+const axios = require('axios');
 export default {
     data(){
         return{
-            pageNumber:1
+            pageNumber:1,
+            memberRowset:[]
         }
+    },
+    asyncData(){
+        return axios.get(`http://13.88.221.88:8002/api/v1/back/account`).then(
+            res => {
+                return { memberRowset: res.data.data}
+            }
+        )
     },
     methods:{
         searchMembers(){
