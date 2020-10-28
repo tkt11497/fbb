@@ -144,14 +144,12 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-flex xs12 md12 class="mt-1">
-            <v-card flat color="#9ABDE4" min-height="35vh">
-              <v-card flat min-height="30vh" color="#9ABDE4">
+            <v-card flat color="#9ABDE4">
+              <v-card flat color="#9ABDE4">
                 <v-row>
-                  <v-col cols="3">局號 </v-col>
-                  <v-col cols="3"> 購買時間 </v-col>
-                  <v-col cols="2">張數</v-col>
-                  <v-col cols="2"> 寶寶 </v-col>
-                  <v-col cols="2"> 遊戲結果</v-col>
+                  <v-col cols="4">局號</v-col>
+                  <v-col cols="4">購買時間 </v-col>
+                  <v-col cols="4">寶寶</v-col>
                 </v-row>
                 <hr
                   style="
@@ -160,12 +158,10 @@
                     border-width: 0;
                   "
                 />
-                <v-row class="my-1" dense v-for="n in 10" :key="n">
-                  <v-col cols="3">682期 </v-col>
-                  <v-col cols="3">2020/09/15 12:14 </v-col>
-                  <v-col cols="2">10</v-col>
-                  <v-col cols="2">豪哥</v-col>
-                  <v-col cols="2">豪哥勝</v-col>
+                <v-row class="my-1" dense v-for="betHistory in betHistoryRes" :key="betHistory.id">
+                  <v-col cols="4">{{betHistory.phase}}期 </v-col>
+                  <v-col cols="4">{{timestampToDate(betHistory.buy_time)}}</v-col>
+                  <v-col cols="4">{{ $t('payoutBaby', betHistory.payout_baby) }}</v-col>
                 </v-row>
               </v-card>
               <v-row no-gutters justify="center" align="center">
@@ -324,26 +320,21 @@
           </v-flex>
         </v-expansion-panel-content>
       </v-expansion-panel>
-      <v-expansion-panel
-        v-for="(item, i) in items"
-        :key="i"
-        class="mx-4 mt-1"
-        style="background-color: #9abde4"
-      >
+      <v-expansion-panel class="mx-4 mt-1" style="background-color: #9abde4">
         <v-expansion-panel-header>
-          {{ item }}
+          分紅列表:
           <template v-slot:actions>
             <v-icon x-large color="primary">$expand</v-icon>
           </template>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-flex xs12 md12 class="mt-1">
-            <v-card flat color="#9ABDE4" min-height="35vh">
-              <v-card flat min-height="30vh" color="#9ABDE4">
+            <v-card flat color="#9ABDE4">
+              <v-card flat color="#9ABDE4">
                 <v-row>
-                  <v-col cols="4">時間 </v-col>
-                  <v-col cols="4"> 分紅</v-col>
-                  <v-col cols="4"></v-col>
+                  <v-col cols="3"> 時間 </v-col>
+                  <v-col cols="3">數量</v-col>
+                  <v-col cols="6"> 分紅類型 </v-col>
                 </v-row>
                 <hr
                   style="
@@ -352,10 +343,17 @@
                     border-width: 0;
                   "
                 />
-                <v-row class="my-1" dense v-for="n in 10" :key="n">
-                  <v-col cols="4">2020/09/15 12:54 </v-col>
-                  <v-col cols="4"> 1000</v-col>
-                  <v-col cols="4"> </v-col>
+                <v-row
+                  class="my-1"
+                  dense
+                  v-for="dist in distRes"
+                  :key="dist.id"
+                >
+                  <v-col cols="3">{{
+                    timestampToDate(dist.timestamps)
+                  }}</v-col>
+                  <v-col cols="3">{{ dist.amount }} </v-col>
+                  <v-col cols="6">{{ dist.type }}</v-col>
                 </v-row>
               </v-card>
               <v-row no-gutters justify="center" align="center">
@@ -413,9 +411,11 @@ export default {
           href: "/memberList/memberDetail/123",
         },
       ],
-      items: ["獨贏分紅:", "座位分紅:", "推薦分紅:"],
       memberInfo: {},
       depositRowset: [],
+      withdrawRowset: [],
+      betHistoryRes: [],
+      distRes: [],
     };
   },
   async asyncData({ params, env }) {
@@ -428,10 +428,18 @@ export default {
     const withdrawRes = await axios.get(
       `${env.ApiUrl}/v1/back/withdraw/${params.id}`
     );
+    const betHistoryRes = await axios.get(
+      `${env.ApiUrl}/v1/back/buys/${params.id}`
+    );
+    const distRes = await axios.get(
+      `${env.ApiUrl}/v1/back/dist/${params.id}`
+    );
     return {
       memberInfo: memberInfo.data.data,
       depositRowset: depositRes.data.data,
       withdrawRowset: withdrawRes.data.data,
+      betHistoryRes: betHistoryRes.data.data,
+      distRes: distRes.data.data,
     };
   },
   methods: {

@@ -12,7 +12,8 @@
     "@nuxtjs/dotenv": "^1.4.1",
     "axios": "^0.20.0",
     "moment": "^2.29.1",
-    "nuxt": "^2.14.0"
+    "nuxt": "^2.14.0",
+    "nuxt-i18n": "^6.15.4"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.11.2"
