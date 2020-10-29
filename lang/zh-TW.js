@@ -1,3 +1,3 @@
 export default {
-  payoutBaby: '阿寶 | 科學家 | 槍男 | 小美 | 機器人'
+  payoutBaby: '阿肯 | 小嗶 | 豪哥 | 光子 | 愛醬'
 }

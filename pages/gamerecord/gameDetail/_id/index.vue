@@ -240,18 +240,18 @@
             >
           </v-row>
           <v-row class="mx-4">
-            <v-col cols="4">HASH幸運8編號 </v-col>
-            <v-col cols="4"> 觸發玩家 </v-col>
-            <v-col cols="4"> HASH增加彩金數</v-col>
+            <v-col cols="4">時間 </v-col>
+            <v-col cols="4"> 中獎玩家ID </v-col>
+            <v-col cols="4"> HASH獲得彩金數</v-col>
           </v-row>
           <hr
             class="mx-4"
             style="height: 3px; background-color: #4472c4; border-width: 0"
           />
-          <v-row class="mx-4 my-1" dense v-for="n in 10" :key="n">
-            <v-col cols="4">alskdjalsjdlkas </v-col>
-            <v-col cols="4"> dasds@gmai.com.asdada </v-col>
-            <v-col cols="4"> 10000 </v-col>
+          <v-row class="mx-4 my-1" dense v-for="hash8 in hash8Res" :key="hash8.id">
+            <v-col cols="4">{{timestampToDate(hash8.timestamps)}} </v-col>
+            <v-col cols="4">{{hash8.id}} </v-col>
+            <v-col cols="4">{{hash8.amount}} </v-col>
           </v-row>
         </v-card>
         <v-row no-gutters justify="center" align="center">
@@ -307,14 +307,19 @@ export default {
           href: "/gamerecord/gameDetail/123",
         },
       ],
+      hash8Res: [],
     };
   },
   async asyncData({ params, env }) {
     const gameInfo = await axios.get(
       `${env.ApiUrl}/v1/back/phase/${params.id}`
     );
+    const hash8Res = await axios.get(
+      `${env.ApiUrl}/v1/back/luck/${params.id}`
+    );
     return {
       gameInfo: gameInfo.data.data,
+      hash8Res: hash8Res.data.data,
     };
   },
   methods: {
@@ -338,6 +343,9 @@ export default {
             break;
         }
       }
+    },
+    timestampToDate(timestamp) {
+      return moment.unix(timestamp).format("YYYY-MM-DD HH:mm:ss");
     },
   },
   watch: {
