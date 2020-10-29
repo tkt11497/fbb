@@ -384,6 +384,73 @@
           </v-flex>
         </v-expansion-panel-content>
       </v-expansion-panel>
+      <v-expansion-panel class="mx-4 mt-1" style="background-color: #9abde4">
+        <v-expansion-panel-header>
+          <v-row no-gutters>
+            <v-col cols="9">推薦列表:</v-col>
+            <v-col cols="3">推薦人數:{{recommendCount}}</v-col>
+          </v-row>
+          <template v-slot:actions>
+            <v-icon x-large color="primary">$expand</v-icon>
+          </template>
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-flex xs12 md12 class="mt-1">
+            <v-card flat color="#9ABDE4">
+              <v-card flat color="#9ABDE4">
+                <v-row>
+                  <v-col cols="2">id</v-col>
+                  <v-col cols="4">最後登入時間</v-col>
+                  <v-col cols="4">註冊時間</v-col>
+                  <v-col cols="2">驗證狀態</v-col>
+                </v-row>
+                <hr
+                  style="
+                    height: 3px;
+                    background-color: #4472c4;
+                    border-width: 0;
+                  "
+                />
+                <v-row
+                  class="my-1"
+                  dense
+                  v-for="recommend in recommendRes"
+                  :key="recommend.id"
+                >
+                  <v-col cols="2">{{recommend.id}}</v-col>
+                  <v-col cols="4">{{timestampToDate(recommend.created_date)}}</v-col>
+                  <v-col cols="4">{{timestampToDate(recommend.created_date)}}</v-col>
+                  <v-col cols="2">{{ recommend.is_verify }}</v-col>
+                </v-row>
+              </v-card>
+              <v-row no-gutters justify="center" align="center">
+                <v-btn
+                  icon
+                  x-large
+                  color="#4472C4"
+                  style="transform: rotateY(180deg)"
+                  @click="changePage('-')"
+                >
+                  <v-icon x-large>forward</v-icon>
+                </v-btn>
+                <div style="height: 40px; width: 50px">
+                  <v-text-field
+                    single-line
+                    solo
+                    class="pa-0 ma-0"
+                    dense
+                    v-model="pageNumber"
+                  ></v-text-field>
+                </div>
+                <span> /100</span>
+                <v-btn icon x-large color="#4472C4" @click="changePage('+')">
+                  <v-icon x-large>forward</v-icon>
+                </v-btn>
+              </v-row>
+            </v-card>
+          </v-flex>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
     </v-expansion-panels>
   </v-container>
 </template>
@@ -416,6 +483,8 @@ export default {
       withdrawRowset: [],
       betHistoryRes: [],
       distRes: [],
+      recommendRes: [],
+      recommendCount: 0,
     };
   },
   async asyncData({ params, env }) {
@@ -434,12 +503,17 @@ export default {
     const distRes = await axios.get(
       `${env.ApiUrl}/v1/back/dist/${params.id}`
     );
+    const recommendRes = await axios.get(
+      `${env.ApiUrl}/v1/back/recommend/${params.id}`
+    );
     return {
       memberInfo: memberInfo.data.data,
       depositRowset: depositRes.data.data,
       withdrawRowset: withdrawRes.data.data,
       betHistoryRes: betHistoryRes.data.data,
       distRes: distRes.data.data,
+      recommendRes: recommendRes.data.data.accs,
+      recommendCount: recommendRes.data.data.count,
     };
   },
   methods: {
