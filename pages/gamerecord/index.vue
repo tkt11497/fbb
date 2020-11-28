@@ -115,7 +115,7 @@ export default {
     };
   },
   asyncData() {
-    return axios.get(`http://localhost:8002/api/v1/back/phase`).then((res) => {
+    return axios.get(`https://futurebaby88.net/api/v1/back/phase`).then((res) => {
       return { recordRowset: res.data.data };
     });
   },

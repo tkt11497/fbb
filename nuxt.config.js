@@ -57,8 +57,15 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    'nuxt-i18n',
   ],
+  i18n:{
+    locales: [{ code: 'tw', file: 'zh-TW.js' }],
+    defaultLocale: 'tw',
+    lazy: true,
+    langDir: 'lang/'
+  },
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module
