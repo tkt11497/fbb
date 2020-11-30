@@ -161,7 +161,7 @@
                 <v-row class="my-1" dense v-for="betHistory in betHistoryRes" :key="betHistory.id">
                   <v-col cols="4">{{betHistory.phase}}期 </v-col>
                   <v-col cols="4">{{timestampToDate(betHistory.buy_time)}}</v-col>
-                  <v-col cols="4">{{ $t('payoutBaby', betHistory.payout_baby) }}</v-col>
+                  <v-col cols="4">{{ $tc('payoutBaby', betHistory.payout_baby) }}</v-col>
                 </v-row>
               </v-card>
               <v-row no-gutters justify="center" align="center">
@@ -353,7 +353,7 @@
                     timestampToDate(dist.timestamps)
                   }}</v-col>
                   <v-col cols="3">{{ dist.amount }} </v-col>
-                  <v-col cols="6">{{ dist.type }}</v-col>
+                  <v-col cols="6">{{ $tc("distType", dist.type) }}</v-col>
                 </v-row>
               </v-card>
               <v-row no-gutters justify="center" align="center">
