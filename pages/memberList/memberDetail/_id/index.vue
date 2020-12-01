@@ -353,7 +353,7 @@
                     timestampToDate(dist.timestamps)
                   }}</v-col>
                   <v-col cols="3">{{ dist.amount }} </v-col>
-                  <v-col cols="6">{{ $tc("distType", dist.type) }}</v-col>
+                  <v-col cols="6">{{ $t("distType_" + (dist.type+1)) }}</v-col>
                 </v-row>
               </v-card>
               <v-row no-gutters justify="center" align="center">
