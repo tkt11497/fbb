@@ -46,7 +46,7 @@
           <v-row class="mx-4">
             <v-col cols="3">遊戲編號</v-col>
             <v-col cols="3">開始時間</v-col>
-            <v-col cols="3">遊玩人數</v-col>
+            <v-col cols="3">總票數</v-col>
             <v-col cols="3"></v-col>
           </v-row>
           <hr
@@ -76,30 +76,7 @@
             </v-col>
           </v-row>
         </v-card>
-        <v-row no-gutters justify="center" align="center">
-          <v-btn
-            icon
-            x-large
-            color="#4472C4"
-            style="transform: rotateY(180deg)"
-            @click="changePage('-')"
-          >
-            <v-icon x-large>forward</v-icon>
-          </v-btn>
-          <div style="height: 40px; width: 50px">
-            <v-text-field
-              single-line
-              solo
-              class="pa-0 ma-0"
-              dense
-              v-model="pageNumber"
-            ></v-text-field>
-          </div>
-          <span> /100</span>
-          <v-btn icon x-large color="#4472C4" @click="changePage('+')">
-            <v-icon x-large>forward</v-icon>
-          </v-btn>
-        </v-row>
+        <Pagination :pager="recordPager" @changePage="changePage" />
       </v-card>
     </v-flex>
   </v-container>
@@ -112,41 +89,27 @@ export default {
     return {
       pageNumber: 1,
       recordRowset: [],
+      recordPager: {},
     };
   },
-  asyncData() {
-    return axios.get(`https://futurebaby88.net/api/v1/back/phase`).then((res) => {
-      return { recordRowset: res.data.data };
-    });
+  async fetch() {
+    this.getDrawList();
   },
   methods: {
     searchMembers() {},
-    changePage(e) {
-      if (this.pageNumber <= 1) {
-        if (e == "-") {
-          return;
-        } else {
-          this.pageNumber += 1;
-        }
-      } else {
-        switch (e) {
-          case "+":
-            this.pageNumber += 1;
-            break;
-          case "-":
-            this.pageNumber -= 1;
-            break;
-        }
-      }
+    getDrawList(pageNumber) {
+      axios
+        .get(`${process.env.ApiUrl}/v1/back/phaselist/` + (pageNumber || 1))
+        .then((res) => {
+          this.recordRowset = res.data.data;
+          this.recordPager = res.data.pager;
+        });
+    },
+    changePage(pageNumber) {
+      this.getDrawList(pageNumber);
     },
     timestampToDate(timestamp) {
       return moment.unix(timestamp).format("YYYY-MM-DD HH:mm:ss");
-    },
-  },
-  watch: {
-    pageNumber: function (val, oldVal) {
-      //debounce if necessary
-      console.log("new: %s, old: %s", val, oldVal);
     },
   },
 };

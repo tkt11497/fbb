@@ -28,6 +28,7 @@
                   background-color="white"
                   dense
                   append-icon="search"
+                  v-model="searchMember"
                   @click:append="searchMembers"
                 >
                   <template v-slot:prepend>
@@ -44,9 +45,10 @@
             </v-row>
           </v-row>
           <v-row class="mx-4">
+            <v-col cols="1">ID</v-col>
             <v-col cols="4">玩家帳號</v-col>
-            <v-col cols="4"> 註冊時間</v-col>
-            <v-col cols="4"></v-col>
+            <v-col cols="4">註冊時間</v-col>
+            <v-col cols="3"></v-col>
           </v-row>
           <hr
             class="mx-4"
@@ -58,9 +60,10 @@
             v-for="member in memberRowset"
             :key="member.id"
           >
+            <v-col cols="1">{{ member.id }}</v-col>
             <v-col cols="4">{{ member.username }}</v-col>
             <v-col cols="4">{{ timestampToDate(member.created_date) }}</v-col>
-            <v-col cols="4">
+            <v-col cols="3">
               <v-row no-gutters justify="end" class="mr-3">
                 <v-btn
                   small
@@ -86,6 +89,7 @@ export default {
     return {
       memberRowset: [],
       memberPager: {},
+      searchMember: 0,
     };
   },
   async fetch() {
@@ -101,7 +105,7 @@ export default {
         });
     },
     searchMembers() {
-      console.log("searchmember");
+      this.$router.push(`/memberList/memberDetail/${this.searchMember}`);
     },
     changePage(pageNumber) {
       this.getMemberList(pageNumber);

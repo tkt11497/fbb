@@ -22,7 +22,7 @@
             <v-icon x-large color="primary">$expand</v-icon>
           </template>
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content v-show="true">
           <v-flex xs12 md12 class="mt-1">
             <v-card flat color="#9ABDE4" min-height="35vh">
               <v-card flat min-height="30vh" color="#9ABDE4">
@@ -39,7 +39,7 @@
                   "
                 />
                 <v-row class="my-1" v-for="onlinePlayer in onlinePlayerPreDateRowset" :key="onlinePlayer.date">
-                  <v-col cols="4">{{onlinePlayer.date}}</v-col>
+                  <v-col cols="4">{{ dateFormat(onlinePlayer.date) }}</v-col>
                   <v-col cols="4">{{onlinePlayer.number}}人</v-col>
                   <v-col cols="4"></v-col>
                 </v-row>
@@ -72,7 +72,7 @@
           </v-flex>
         </v-expansion-panel-content>
       </v-expansion-panel>
-      <v-expansion-panel class="mx-4 mt-1" style="background-color: #9abde4">
+      <!-- v-expansion-panel class="mx-4 mt-1" style="background-color: #9abde4">
         <v-expansion-panel-header>
           每局上線人數:
           <template v-slot:actions>
@@ -128,7 +128,7 @@
             </v-card>
           </v-flex>
         </v-expansion-panel-content>
-      </v-expansion-panel>
+      </v-expansion-panel -->
     </v-expansion-panels>
   </v-container>
 </template>
@@ -139,6 +139,7 @@
 </style>
 <script>
 const axios = require('axios');
+const moment = require("moment");
 export default {
   data() {
     return {
@@ -148,11 +149,11 @@ export default {
     };
   },
   async asyncData(){
-        const onlinePlayerPreGameRowset = await axios.get(`http://13.88.221.88:8002/api/v1/loginbyphase`)
+        // const onlinePlayerPreGameRowset = await axios.get(`${process.env.ApiUrl}/v1/loginbyphase`)
 
-        const onlinePlayerPreDateRowset = await axios.get(`http://13.88.221.88:8002/api/v1/loginbydate`)
+        const onlinePlayerPreDateRowset = await axios.get(`${process.env.ApiUrl}/v1/loginbydate`)
         
-        return {onlinePlayerPreGameRowset: onlinePlayerPreGameRowset.data.data, onlinePlayerPreDateRowset: onlinePlayerPreDateRowset.data.data};
+        return {/*onlinePlayerPreGameRowset: onlinePlayerPreGameRowset.data.data, */onlinePlayerPreDateRowset: onlinePlayerPreDateRowset.data.data};
     },
   methods: {
     searchMembers() {
@@ -175,6 +176,9 @@ export default {
             break;
         }
       }
+    },
+    dateFormat(date) {
+      return moment(date).format("YYYY-MM-DD");
     },
   },
   watch: {
