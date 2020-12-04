@@ -11,4 +11,5 @@ export default {
   distType_9: '推薦獎金',
   distType_10: '底層前座分紅',
   distType_11: '退款',
+  distType_13: '系統維護',
 }

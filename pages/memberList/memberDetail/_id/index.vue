@@ -346,8 +346,8 @@
                 <v-row
                   class="my-1"
                   dense
-                  v-for="dist in distRes"
-                  :key="dist.id"
+                  v-for="(dist, key) in distRes"
+                  :key="key"
                 >
                   <v-col cols="3">{{
                     timestampToDate(dist.timestamps)
@@ -356,30 +356,7 @@
                   <v-col cols="6">{{ $t("distType_" + (dist.type+1)) }}</v-col>
                 </v-row>
               </v-card>
-              <v-row no-gutters justify="center" align="center">
-                <v-btn
-                  icon
-                  x-large
-                  color="#4472C4"
-                  style="transform: rotateY(180deg)"
-                  @click="changePage('-')"
-                >
-                  <v-icon x-large>forward</v-icon>
-                </v-btn>
-                <div style="height: 40px; width: 50px">
-                  <v-text-field
-                    single-line
-                    solo
-                    class="pa-0 ma-0"
-                    dense
-                    v-model="pageNumber"
-                  ></v-text-field>
-                </div>
-                <span> /100</span>
-                <v-btn icon x-large color="#4472C4" @click="changePage('+')">
-                  <v-icon x-large>forward</v-icon>
-                </v-btn>
-              </v-row>
+              <Pagination :pager="distPager" @changePage="changeDistPage" />
             </v-card>
           </v-flex>
         </v-expansion-panel-content>
@@ -485,6 +462,7 @@ export default {
       distRes: [],
       recommendRes: [],
       recommendCount: 0,
+      distPager:{},
     };
   },
   async asyncData({ params, env }) {
@@ -500,9 +478,6 @@ export default {
     const betHistoryRes = await axios.get(
       `${env.ApiUrl}/v1/back/buys/${params.id}`
     );
-    const distRes = await axios.get(
-      `${env.ApiUrl}/v1/back/dist/${params.id}`
-    );
     const recommendRes = await axios.get(
       `${env.ApiUrl}/v1/back/recommend/${params.id}`
     );
@@ -511,41 +486,30 @@ export default {
       depositRowset: depositRes.data.data,
       withdrawRowset: withdrawRes.data.data,
       betHistoryRes: betHistoryRes.data.data,
-      distRes: distRes.data.data,
       recommendRes: recommendRes.data.data.accs,
       recommendCount: recommendRes.data.data.count,
     };
+  },
+  async fetch() {
+    this.getDistList();
   },
   methods: {
     searchMembers() {
       console.log("searchmember");
     },
-    changePage(e) {
-      if (this.pageNumber <= 1) {
-        if (e == "-") {
-          return;
-        } else {
-          this.pageNumber += 1;
-        }
-      } else {
-        switch (e) {
-          case "+":
-            this.pageNumber += 1;
-            break;
-          case "-":
-            this.pageNumber -= 1;
-            break;
-        }
-      }
+    getDistList(pageNumber){
+      axios
+        .get(`${process.env.ApiUrl}/v1/back/dist/${this.$route.params.id}/` + (pageNumber || 1))
+        .then((res) => {
+          this.distRes = res.data.data;
+          this.distPager = res.data.pager;
+        });
+    },
+    changeDistPage(pageNumber) {
+      this.getDistList(pageNumber);
     },
     timestampToDate(timestamp) {
       return moment.unix(timestamp).format("YYYY-MM-DD HH:mm:ss");
-    },
-  },
-  watch: {
-    pageNumber: function (val, oldVal) {
-      //debounce if necessary
-      console.log("new: %s, old: %s", val, oldVal);
     },
   },
 };

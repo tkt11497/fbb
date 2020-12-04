@@ -2,7 +2,7 @@ import colors from 'vuetify/es5/util/colors'
 require('dotenv').config({path: '.env'})
 export default {
   env:{
-    ApiUrl: process.env.API_URL || "http://13.88.221.88:8002/api",
+    ApiUrl: process.env.API_URL || "http://127.0.0.1:8002/api",
   },
   /*
   ** Nuxt rendering mode
