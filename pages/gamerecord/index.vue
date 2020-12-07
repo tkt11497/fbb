@@ -66,7 +66,7 @@
               <v-row no-gutters justify="end" class="mr-3">
                 <v-btn
                   @click="
-                    $router.push('/gamerecord/gameDetail/${record.phase}')
+                    $router.push(`/gamerecord/gameDetail/${record.phase}`)
                   "
                 >
                   <span style="font-weight: bold">詳細</span>
