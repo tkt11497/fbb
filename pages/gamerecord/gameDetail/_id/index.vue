@@ -75,9 +75,8 @@
       </v-col>
     </v-row>
     <v-row no-gutters class="mx-4">
-      <v-col :md="4" :sm="12" class="mt-1">
+      <v-col :md="6" :sm="12" class="mt-1">
         <v-card
-          min-width="280px"
           style="height: 40px; background-color: #9abde4"
           class="d-flex"
         >
@@ -95,30 +94,8 @@
           </div>
         </v-card>
       </v-col>
-      <v-col :md="4" :sm="12" class="mt-1">
+      <v-col :md="6" :sm="12" class="mt-1">
         <v-card
-          min-width="280px"
-          class="ml-1 d-flex"
-          style="height: 40px; background-color: #9abde4"
-        >
-          <div
-            class="d-flex justify-start align-center"
-            style="width: 50%; height: 100%"
-          >
-            <span class="ml-2">遊戲歷時: </span>
-            <!-- regs time -->
-          </div>
-          <div
-            class="d-flex justify-start align-center"
-            style="width: 50%; height: 100%"
-          >
-            <span class="ml-2" style="font-weight: bold"> 10h59m59s</span>
-          </div>
-        </v-card>
-      </v-col>
-      <v-col :md="4" :sm="12" class="mt-1">
-        <v-card
-          min-width="280px"
           class="ml-1 d-flex"
           style="height: 40px; background-color: #9abde4"
         >
@@ -156,9 +133,7 @@
             class="d-flex justify-start align-center"
             style="width: 50%; height: 100%"
           >
-            <span class="ml-2" style="font-weight: bold">
-              2020/09/15 01:12</span
-            >
+            <span class="ml-2" style="font-weight: bold">{{gameInfo.start_time}}</span>
           </div>
         </v-card>
       </v-col>
@@ -178,9 +153,7 @@
             class="d-flex justify-start align-center"
             style="width: 50%; height: 100%"
           >
-            <span class="ml-2" style="font-weight: bold">
-              2020/09/15 01:12</span
-            >
+            <span class="ml-2" style="font-weight: bold">{{gameInfo.end_time}}</span>
           </div>
         </v-card>
       </v-col>
