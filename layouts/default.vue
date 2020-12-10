@@ -7,6 +7,7 @@
       :permanent="!$vuetify.breakpoint.xs" 
       color="#A1C1E4" 
       width="220px"
+      v-if="!$store.state.isLogin"
     >
       <v-btn text 
           v-for="item in items"
@@ -66,7 +67,7 @@
         {  text: '會員列表',to:'/memberList' }, //memberlist
         {  text: '遊戲紀錄',to:'/gamerecord' },//gamerecord
         { text: '遊戲錢包',to:'/gameWallet' },//game wallet
-         { text: '上線人數',to:'/onlinePpl' }//number of online
+        { text: '上線人數',to:'/onlinePpl' }//number of online
       ],
     }),
     methods:{

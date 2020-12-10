@@ -40,6 +40,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 export default {
   data() {
     return {
@@ -51,8 +52,21 @@ export default {
     loginValid() {
       if(this.username == 'admin' && this.password == '123456'){
         this.$router.push('/memberList')
-      }else{
-        alert('帳號密碼錯誤!!');
+      }else{      
+        axios
+        .post(`${process.env.ApiUrl}/v1/account/backlogin`, {
+          username: this.username,
+          password: this.password
+        })
+        .then((res) => {
+          if(res.data.code == 200){
+            this.$store.commit('SET_IS_LOGIN', true);
+            this.$store.commit('SET_TOKEN', res.data.data.token);
+            this.$router.push(`/memberList/memberDetail/${res.data.data.acc_id}`)
+          }else{
+            alert('帳號密碼錯誤!!');
+          }
+        });
       }
     },
   },

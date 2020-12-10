@@ -4,7 +4,7 @@
     class="px-10 pt-7"
     :class="{ fontSize: $vuetify.breakpoint.mobile }"
   >
-    <v-row no-gutters>
+    <v-row no-gutters v-if="!$store.state.isLogin">
       <v-breadcrumbs :items="breadcrumbs" class="ml-5">
         <template v-slot:divider>
           <v-icon large>keyboard_arrow_right</v-icon>
@@ -17,7 +17,7 @@
                 'font-size': '20px',
               }"
             >
-              {{ item.text }}</span
+              {{ item.text }} </span
             >
           </v-breadcrumbs-item>
         </template>
@@ -466,8 +466,9 @@
       <v-expansion-panel class="mx-4 mt-1" style="background-color: #9abde4">
         <v-expansion-panel-header>
           <v-row no-gutters>
-            <v-col cols="9">推薦列表:</v-col>
-            <v-col cols="3">推薦人數:{{recommendCount}}</v-col>
+            <v-col cols="6">太陽線列表:</v-col>
+            <v-col cols="3">總貢獻:{{recommendCount.total_buy}}</v-col>
+            <v-col cols="3">本月貢獻:{{recommendCount.this_month}}</v-col>
           </v-row>
           <template v-slot:actions>
             <v-icon x-large color="primary">$expand</v-icon>
@@ -479,9 +480,9 @@
               <v-card flat color="#9ABDE4">
                 <v-row>
                   <v-col cols="2">id</v-col>
-                  <v-col cols="4">最後登入時間</v-col>
-                  <v-col cols="4">註冊時間</v-col>
-                  <v-col cols="2">驗證狀態</v-col>
+                  <v-col cols="4">總購買</v-col>
+                  <v-col cols="4">本月購買</v-col>
+                  <v-col cols="2">上月購買</v-col>
                 </v-row>
                 <hr
                   style="
@@ -494,12 +495,12 @@
                   class="my-1"
                   dense
                   v-for="recommend in recommendRes"
-                  :key="recommend.id"
+                  :key="recommend.acc_id"
                 >
-                  <v-col cols="2">{{recommend.id}}</v-col>
-                  <v-col cols="4">{{timestampToDate(recommend.created_date)}}</v-col>
-                  <v-col cols="4">{{timestampToDate(recommend.created_date)}}</v-col>
-                  <v-col cols="2">{{ recommend.is_verify }}</v-col>
+                  <v-col cols="2">{{recommend.acc_id}}</v-col>
+                  <v-col cols="4">{{recommend.total_buy}}</v-col>
+                  <v-col cols="4">{{recommend.buy_amount}}</v-col>
+                  <v-col cols="2">{{ recommend.last_month }}</v-col>
                 </v-row>
               </v-card>
               <v-row no-gutters justify="center" align="center">
@@ -526,6 +527,46 @@
                   <v-icon x-large>forward</v-icon>
                 </v-btn>
               </v-row>
+            </v-card>
+          </v-flex>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+      <v-expansion-panel class="mx-4 mt-1" style="background-color: #9abde4">
+        <v-expansion-panel-header>
+          每月統計:前12個月的統計數據
+          <template v-slot:actions>
+            <v-icon x-large color="primary">$expand</v-icon>
+          </template>
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-flex xs12 md12 class="mt-1">
+            <v-card flat color="#9ABDE4">
+              <v-card flat color="#9ABDE4">
+                <v-row>
+                  <v-col cols="3"> 月份 </v-col>
+                  <v-col cols="3"> 月投入</v-col>
+                  <v-col cols="3"> 月收入 </v-col>
+                  <v-col cols="3"> 太陽下線月貢獻 </v-col>
+                </v-row>
+                <hr
+                  style="
+                    height: 3px;
+                    background-color: #4472c4;
+                    border-width: 0;
+                  "
+                />
+                <v-row
+                  class="my-1"
+                  dense
+                  v-for="(report, key) in reportRowset"
+                  :key="key"
+                >
+                  <v-col cols="3">{{ report.month }}</v-col>
+                  <v-col cols="3">{{ report.buy_amount }} </v-col>
+                  <v-col cols="3">{{ parseInt(report.win_amount / 1000000) }} </v-col>
+                  <v-col cols="3">{{ parseInt(report.recommend_amount / 1000000) }}</v-col>
+                </v-row>
+              </v-card>
             </v-card>
           </v-flex>
         </v-expansion-panel-content>
@@ -563,7 +604,8 @@ export default {
       betHistoryRes: [],
       distRes: [],
       recommendRes: [],
-      recommendCount: 0,
+      reportRowset: [],
+      recommendCount: {},
       distPager:{},
     };
   },
@@ -583,13 +625,17 @@ export default {
     const recommendRes = await axios.get(
       `${env.ApiUrl}/v1/back/recommend/${params.id}`
     );
+    const reportRes = await axios.get(
+      `${env.ApiUrl}/v1/back/report/${params.id}`
+    );
     return {
       memberInfo: memberInfo.data.data,
       depositRowset: depositRes.data.data,
       withdrawRowset: withdrawRes.data.data,
       betHistoryRes: betHistoryRes.data.data,
-      recommendRes: recommendRes.data.data.accs,
-      recommendCount: recommendRes.data.data.count,
+      recommendRes: recommendRes.data.data.report,
+      recommendCount: recommendRes.data.data.total,
+      reportRowset: reportRes.data.data
     };
   },
   async fetch() {
