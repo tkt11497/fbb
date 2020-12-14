@@ -3,6 +3,7 @@ require('dotenv').config({path: '.env'})
 export default {
   env:{
     ApiUrl: process.env.API_URL || "https://futurebaby88.net/api",
+    //ApiUrl: process.env.API_URL || "http://127.0.0.1:8002/api",
   },
   /*
   ** Nuxt rendering mode

@@ -1,5 +1,9 @@
 export default {
-  payoutBaby: '阿肯 | 小嗶 | 豪哥 | 光子 | 愛醬',
+  payoutBaby_1: '阿肯',
+  payoutBaby_2: '小嗶',
+  payoutBaby_3: '豪哥',
+  payoutBaby_4: '光子',
+  payoutBaby_5: '愛醬',
   distType_1: '購買推薦',
   distType_2: '前座分紅',
   distType_3: '獨贏',

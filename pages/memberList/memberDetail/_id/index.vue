@@ -260,36 +260,13 @@
                     border-width: 0;
                   "
                 />
-                <v-row class="my-1" dense v-for="betHistory in betHistoryRes" :key="betHistory.id">
+                <v-row class="my-1" dense v-for="betHistory in betHistoryRes" :key="betHistory.key">
                   <v-col cols="4">{{betHistory.phase}}期 </v-col>
                   <v-col cols="4">{{timestampToDate(betHistory.buy_time)}}</v-col>
-                  <v-col cols="4">{{ $tc('payoutBaby', betHistory.payout_baby) }}</v-col>
+                  <v-col cols="4">{{ $t(`payoutBaby_${betHistory.payout_baby}`) }}</v-col>
                 </v-row>
               </v-card>
-              <v-row no-gutters justify="center" align="center">
-                <v-btn
-                  icon
-                  x-large
-                  color="#4472C4"
-                  style="transform: rotateY(180deg)"
-                  @click="changePage('-')"
-                >
-                  <v-icon x-large>forward</v-icon>
-                </v-btn>
-                <div style="height: 40px; width: 50px">
-                  <v-text-field
-                    single-line
-                    solo
-                    class="pa-0 ma-0"
-                    dense
-                    v-model="pageNumber"
-                  ></v-text-field>
-                </div>
-                <span> /100</span>
-                <v-btn icon x-large color="#4472C4" @click="changePage('+')">
-                  <v-icon x-large>forward</v-icon>
-                </v-btn>
-              </v-row>
+              <Pagination :pager="betPager" @changePage="changeBetPage" />
             </v-card>
           </v-flex>
         </v-expansion-panel-content>
@@ -602,11 +579,12 @@ export default {
       depositRowset: [],
       withdrawRowset: [],
       betHistoryRes: [],
+      betPager: {},
       distRes: [],
+      distPager:{},
       recommendRes: [],
       reportRowset: [],
       recommendCount: {},
-      distPager:{},
     };
   },
   async asyncData({ params, env }) {
@@ -619,9 +597,6 @@ export default {
     const withdrawRes = await axios.get(
       `${env.ApiUrl}/v1/back/withdraw/${params.id}`
     );
-    const betHistoryRes = await axios.get(
-      `${env.ApiUrl}/v1/back/buys/${params.id}`
-    );
     const recommendRes = await axios.get(
       `${env.ApiUrl}/v1/back/recommend/${params.id}`
     );
@@ -632,7 +607,6 @@ export default {
       memberInfo: memberInfo.data.data,
       depositRowset: depositRes.data.data,
       withdrawRowset: withdrawRes.data.data,
-      betHistoryRes: betHistoryRes.data.data,
       recommendRes: recommendRes.data.data.report,
       recommendCount: recommendRes.data.data.total,
       reportRowset: reportRes.data.data
@@ -640,6 +614,7 @@ export default {
   },
   async fetch() {
     this.getDistList();
+    this.getBetList();
   },
   methods: {
     searchMembers() {
@@ -655,6 +630,17 @@ export default {
     },
     changeDistPage(pageNumber) {
       this.getDistList(pageNumber);
+    },
+    getBetList(pageNumber){
+      axios
+        .get(`${process.env.ApiUrl}/v1/back/buys/${this.$route.params.id}/` + (pageNumber || 1))
+        .then((res) => {
+          this.betHistoryRes = res.data.data;
+          this.betPager = res.data.pager;
+        });
+    },
+    changeBetPage(pageNumber) {
+      this.getBetList(pageNumber);
     },
     timestampToDate(timestamp) {
       return moment.unix(timestamp).format("YYYY-MM-DD HH:mm:ss");
