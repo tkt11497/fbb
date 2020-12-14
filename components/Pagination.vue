@@ -48,8 +48,9 @@ export default {
     },
   },
   watch: {
-    "pager.current_page": function () {
-      this.$emit("changePage", this.pager.current_page);
+    "pager.current_page": function (newValue, oldValue) {
+      if(oldValue)
+        this.$emit("changePage", this.pager.current_page);
     },
   },
 };

@@ -45,10 +45,45 @@
             </v-row>
           </v-row>
           <v-row class="mx-4">
-            <v-col cols="1">ID</v-col>
+            <v-col cols="2">
+              <span
+                @click="changeOrder(`id`, `asc`)"
+                :style="{
+                  color: 'blue',
+                  cursor: 'pointer'
+                }"
+                >⇈</span
+              >
+              ID
+              <span
+                @click="changeOrder(`id`, `desc`)"
+                :style="{
+                  color: 'blue',
+                  cursor: 'pointer'
+                }"
+                >⇊</span
+              ></v-col
+            >
             <v-col cols="4">玩家帳號</v-col>
-            <v-col cols="4">註冊時間</v-col>
-            <v-col cols="3"></v-col>
+            <v-col cols="3">
+              <span
+                @click="changeOrder(`total_donate`, `asc`)"
+                :style="{
+                  color: 'blue',
+                  cursor: 'pointer'
+                }"
+                >⇈</span>
+              本月貢獻
+              <span
+                @click="changeOrder(`total_donate`, `desc`)"
+                :style="{
+                  color: 'blue',
+                  cursor: 'pointer'
+                }"
+                >⇊</span>
+            </v-col>
+            <v-col cols="2">註冊時間</v-col>
+            <v-col cols="1"></v-col>
           </v-row>
           <hr
             class="mx-4"
@@ -60,10 +95,11 @@
             v-for="member in memberRowset"
             :key="member.id"
           >
-            <v-col cols="1">{{ member.id }}</v-col>
+            <v-col cols="2">{{ member.id }}</v-col>
             <v-col cols="4">{{ member.username }}</v-col>
-            <v-col cols="4">{{ timestampToDate(member.created_date) }}</v-col>
-            <v-col cols="3">
+            <v-col cols="3">{{ member.total_donate * 100 }}</v-col>
+            <v-col cols="2">{{ timestampToDate(member.created_date) }}</v-col>
+            <v-col cols="1">
               <v-row no-gutters justify="end" class="mr-3">
                 <v-btn
                   small
@@ -90,15 +126,22 @@ export default {
       memberRowset: [],
       memberPager: {},
       searchMember: 0,
+      page: 1,
+      orderBy: "id",
+      sort: "ASC",
     };
   },
   async fetch() {
     this.getMemberList();
   },
   methods: {
-    getMemberList(pageNumber) {
+    getMemberList() {
       axios
-        .get(`${process.env.ApiUrl}/v1/back/accountlist/` + (pageNumber || 1))
+        .post(`${process.env.ApiUrl}/v1/back/accountlist`, {
+          page: this.page,
+          order: this.orderBy,
+          sort: this.sort,
+        })
         .then((res) => {
           this.memberRowset = res.data.data;
           this.memberPager = res.data.pager;
@@ -108,7 +151,13 @@ export default {
       this.$router.push(`/memberList/memberDetail/${this.searchMember}`);
     },
     changePage(pageNumber) {
-      this.getMemberList(pageNumber);
+      this.page = pageNumber;
+      this.getMemberList();
+    },
+    changeOrder(orderBy, sort) {
+      this.orderBy = orderBy;
+      this.sort = sort;
+      this.getMemberList();
     },
     timestampToDate(timestamp) {
       return moment.unix(timestamp).format("YYYY-MM-DD HH:mm:ss");
