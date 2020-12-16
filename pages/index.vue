@@ -51,6 +51,7 @@ export default {
   methods: {
     loginValid() {
       if(this.username == 'admin' && this.password == '123456'){
+        this.$store.commit('SET_IS_LOGIN', true);
         this.$router.push('/memberList')
       }else{      
         axios
