@@ -65,9 +65,10 @@
       drawer: null,
       items: [
         {  text: '會員列表',to:'/memberList' }, //memberlist
+        {  text: '當月經銷商',to:'/dealerList' }, //memberlist
         {  text: '遊戲紀錄',to:'/gamerecord' },//gamerecord
         { text: '遊戲錢包',to:'/gameWallet' },//game wallet
-        { text: '上線人數',to:'/onlinePpl' }//number of online
+        { text: '上線人數',to:'/onlinePpl' },//number of online
       ],
     }),
     methods:{
