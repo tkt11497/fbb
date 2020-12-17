@@ -4,7 +4,7 @@
     class="px-10 pt-7"
     :class="{ fontSize: $vuetify.breakpoint.mobile }"
   >
-    <v-row no-gutters v-if="!$store.state.isLogin">
+    <v-row no-gutters v-if="!$store.state.token">
       <v-breadcrumbs :items="breadcrumbs" class="ml-5">
         <template v-slot:divider>
           <v-icon large>keyboard_arrow_right</v-icon>

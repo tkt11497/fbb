@@ -7,7 +7,7 @@
       :permanent="!$vuetify.breakpoint.xs" 
       color="#A1C1E4" 
       width="220px"
-      v-if="!$store.state.isLogin"
+      v-if="!$store.state.token"
     >
       <v-btn text 
           v-for="item in items"
@@ -32,9 +32,9 @@
         <span style="font-size:30px;color:white">未來寶寶後台管理系統</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn class="mr-3" @click="()=>$router.go($router.currentRoute)"><span style="font-size:20px;font-weight:bold">刷新</span></v-btn>
+      <v-btn class="mr-3" @click="()=>{return false}"><span style="font-size:20px;font-weight:bold">刷新</span></v-btn>
       <!-- refresh -->
-      <v-btn class="mr-3" @click="logout"> <span style="font-size:20px;font-weight:bold">退出</span></v-btn>
+      <v-btn class="mr-3" @click="logout"> <span style="font-size:20px;font-weight:bold">登出</span></v-btn>
       <!-- logout -->
     </v-app-bar>
        <v-main style="background-color:#5b9bd5">
@@ -74,15 +74,16 @@
     methods:{
       goToHomePage(){
         this.$router.push('/memberList')
-        console.log('go To home page')
       },
       logout(){
-        console.log('logut')
+        this.$store.commit('SET_IS_LOGIN', false);
         this.$router.push('/')
       }
     },
     created () {
-      
+      if(!this.$store.state.isLogin){
+        this.$router.push('/')
+      }
     },
   }
 </script>
