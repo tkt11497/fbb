@@ -327,7 +327,7 @@
                 <v-row>
                   <v-col cols="3"> 日期 </v-col>
                   <v-col cols="3">數量</v-col>
-                  <v-col cols="6"> 錢包地址 </v-col>
+                  <v-col cols="6"> TxID </v-col>
                 </v-row>
                 <hr
                   style="

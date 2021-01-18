@@ -32,12 +32,12 @@
         <span style="font-size:30px;color:white">未來寶寶後台管理系統</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn class="mr-3" @click="()=>{return false}"><span style="font-size:20px;font-weight:bold">刷新</span></v-btn>
+      <v-btn class="mr-3" @click="()=>{this.reload()}"><span style="font-size:20px;font-weight:bold">刷新</span></v-btn>
       <!-- refresh -->
       <v-btn class="mr-3" @click="logout"> <span style="font-size:20px;font-weight:bold">登出</span></v-btn>
       <!-- logout -->
     </v-app-bar>
-       <v-main style="background-color:#5b9bd5">
+       <v-main style="background-color:#5b9bd5" v-if="isRouterAlive">
         
           <nuxt />
         
@@ -63,8 +63,10 @@
     },
     data: () => ({
       drawer: null,
+      isRouterAlive: true,
       items: [
         {  text: '會員列表',to:'/memberList' }, //memberlist
+        {  text: '出金記錄',to:'/withdrawList' }, //withdrawList
         {  text: '當月經銷商',to:'/dealerList' }, //memberlist
         {  text: '遊戲紀錄',to:'/gamerecord' },//gamerecord
         { text: '遊戲錢包',to:'/gameWallet' },//game wallet
@@ -78,9 +80,16 @@
       logout(){
         this.$store.commit('SET_IS_LOGIN', false);
         this.$router.push('/')
+      },
+      reload(){
+        this.isRouterAlive = false;
+        this.$nextTick(function(){
+          this.isRouterAlive = true
+        })
       }
     },
     created () {
+      console.log(this.$router);
       if(!this.$store.state.isLogin){
         this.$router.push('/')
       }
