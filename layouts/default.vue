@@ -67,6 +67,8 @@
       items: [
         {  text: '會員列表',to:'/memberList' }, //memberlist
         {  text: '出金記錄',to:'/withdrawList' }, //withdrawList
+        {  text: '系統給分',to:'/transferList' }, //transferList
+        {  text: '查帳頁面',to:'/distList' }, //distList
         {  text: '當月經銷商',to:'/dealerList' }, //memberlist
         {  text: '遊戲紀錄',to:'/gamerecord' },//gamerecord
         { text: '遊戲錢包',to:'/gameWallet' },//game wallet

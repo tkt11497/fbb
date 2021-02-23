@@ -16,4 +16,11 @@ export default {
   distType_10: '底層前座分紅',
   distType_11: '退款',
   distType_13: '系統維護',
+  ledgerType_0: '購買',
+  ledgerType_1: '退款',
+  ledgerType_2: '分紅',
+  ledgerType_3: '入金',
+  ledgerType_4: '出金',
+  transferMethod_0: '傳送',
+  transferMethod_1: '收回',
 }
