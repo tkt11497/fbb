@@ -19,8 +19,8 @@
             style="background-color: #4472c4;"
             class="d-flex align-center pa-3"
           >
-            <v-row no-gutters style="height: 40px" justify="start">
-              <v-col sm="3" md="3">
+            <v-row no-gutters style="width: 100%; height: 40px" justify="start">
+              <v-col col="3">
                 <v-text-field
                   color="white"
                   v-model="searchMember"
@@ -28,7 +28,7 @@
                   prepend-icon="mdi-account"
                 ></v-text-field>
               </v-col>
-              <v-col sm="3" md="3">
+              <v-col col="3">
                 <v-menu
                   v-model="startDateMenu"
                   :close-on-content-click="false"
@@ -54,7 +54,7 @@
                   ></v-date-picker>
                 </v-menu>
               </v-col>
-              <v-col sm="3" md="3">
+              <v-col col="3">
                 <v-menu
                   v-model="endDateMenu"
                   :close-on-content-click="false"
@@ -80,7 +80,7 @@
                   ></v-date-picker>
                 </v-menu>
               </v-col>
-              <v-col sm="3" md="3">
+              <v-col col="3">
                 <v-btn
                   :loading="isLoading"
                   :disabled="isLoading"
@@ -98,24 +98,27 @@
                 </v-btn>
               </v-col>
             </v-row>
-            <v-row no-gutters style="height: 40px" justify="start">
-              <v-col sm="2" md="2">
+            <v-row no-gutters style="width:100%; height: 40px" justify="start">
+              <v-col col="1">
                 <v-checkbox color="white" v-model="type" label="購買" value="0"></v-checkbox>
               </v-col>
-              <v-col sm="2" md="2">
+              <v-col col="1">
                 <v-checkbox color="white" v-model="type" label="退款" value="1"></v-checkbox>
               </v-col>
-              <v-col sm="2" md="2">
+              <v-col col="1">
                 <v-checkbox color="white" v-model="type" label="分紅" value="2"></v-checkbox>
               </v-col>
-              <v-col sm="2" md="2">
+              <v-col col="1">
                 <v-checkbox color="white" v-model="type" label="入金" value="3"></v-checkbox>
               </v-col>
-              <v-col sm="2" md="2">
+              <v-col col="1">
                 <v-checkbox color="white" v-model="type" label="出金" value="4"></v-checkbox>
               </v-col>
-              <v-col sm="2" md="2">
+              <v-col col="1">
                 <v-checkbox color="white" v-model="type" label="太陽線" value="5"></v-checkbox>
+              </v-col>
+              <v-col col="1">
+                數量加總：{{totalAmount}}
               </v-col>
             </v-row>
           </v-row>
@@ -188,6 +191,7 @@ export default {
     return {
       memberRowset: [],
       memberPager: {},
+      totalAmount: 0,
       type: ['0'],
       startDate: moment().format('YYYY-MM-DD'),
       startDateMenu: false,
@@ -219,6 +223,7 @@ export default {
           this.isLoading = false;
           this.memberRowset = res.data.data;
           this.memberPager = res.data.pager;
+          this.totalAmount = res.data.total;
         });
     },
     searchMembers() {
