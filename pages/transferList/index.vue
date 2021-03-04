@@ -1,5 +1,13 @@
 <template>
   <v-container fluid class="px-10 pt-7">
+    <v-alert
+      v-if="message"
+      type="success"
+      color="red"
+      border="right"
+      dense
+      dismissible
+    >{{ message }}</v-alert>
     <v-row no-gutters>
       <span style="color: black; font-size: 25px" class="ml-5"> 系統給分</span>
       <!-- memberList -->
@@ -161,6 +169,7 @@ export default {
       page: 1,
       orderBy: "timestamps",
       sort: "DESC",
+      message: "",
     };
   },
   async fetch() {
@@ -189,11 +198,15 @@ export default {
           memo: this.memo,
         })
         .then((res) => {
+          if(res.data.code == 200){
+            this.acc_id = '';
+            this.balance = 0;
+            this.memo = '';
+            this.getTransferList();
+          }else{
+            this.message = res.data.msg;
+          }
           this.isLoading = false;
-          this.acc_id = '';
-          this.balance = 0;
-          this.memo = '';
-          this.getTransferList();
         });
     },
     searchTransferList() {

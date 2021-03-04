@@ -49,26 +49,26 @@ export default {
     };
   },
   methods: {
-    loginValid() {
-      if(this.username == 'admin' && this.password == '123456'){
-        this.$store.commit('SET_IS_LOGIN', true);
-        this.$router.push('/memberList')
-      }else{      
-        axios
-        .post(`${process.env.ApiUrl}/v1/account/backlogin`, {
-          username: this.username,
-          password: this.password
-        })
-        .then((res) => {
-          if(res.data.code == 200){
+    loginValid() {  
+      axios
+      .post(`${process.env.ApiUrl}/v1/account/backlogin`, {
+        username: this.username,
+        password: this.password
+      })
+      .then((res) => {
+        if(res.data.code == 200){
+          if(res.data.data.is_admin){
+            this.$store.commit('SET_IS_LOGIN', true);
+            this.$router.push('/memberList')
+          }else{
             this.$store.commit('SET_IS_LOGIN', true);
             this.$store.commit('SET_TOKEN', res.data.data.token);
             this.$router.push(`/memberList/memberDetail/${res.data.data.acc_id}`)
-          }else{
-            alert('帳號密碼錯誤!!');
           }
-        });
-      }
+        }else{
+          alert('帳號密碼錯誤!!');
+        }
+      });
     },
   },
   layout: "login",

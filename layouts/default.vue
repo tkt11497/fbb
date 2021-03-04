@@ -65,14 +65,15 @@
       drawer: null,
       isRouterAlive: true,
       items: [
-        {  text: '會員列表',to:'/memberList' }, //memberlist
-        {  text: '出金記錄',to:'/withdrawList' }, //withdrawList
-        {  text: '系統給分',to:'/transferList' }, //transferList
-        {  text: '查帳頁面',to:'/distList' }, //distList
-        {  text: '當月經銷商',to:'/dealerList' }, //memberlist
-        {  text: '遊戲紀錄',to:'/gamerecord' },//gamerecord
-        { text: '遊戲錢包',to:'/gameWallet' },//game wallet
-        { text: '上線人數',to:'/onlinePpl' },//number of online
+        {  text: '會員列表',to:'/memberList' },
+        {  text: '出金記錄',to:'/withdrawList' },
+        {  text: '系統給分',to:'/transferList' },
+        {  text: '查帳頁面',to:'/distList' },
+        {  text: '當月經銷商',to:'/dealerList' },
+        {  text: '遊戲紀錄',to:'/gamerecord' },
+        { text: '遊戲錢包',to:'/gameWallet' },
+        { text: '上線人數',to:'/onlinePpl' },
+        { text: '修改密碼',to:'/changePwd' },
       ],
     }),
     methods:{
@@ -91,7 +92,6 @@
       }
     },
     created () {
-      console.log(this.$router);
       if(!this.$store.state.isLogin){
         this.$router.push('/')
       }
