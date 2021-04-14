@@ -237,7 +237,7 @@
       </v-col>
     </v-row>
     <v-row no-gutters class="mx-4">
-      <v-col :md="6" :sm="12" class="mt-1">
+      <v-col :md="4" :sm="12" class="mt-1">
         <v-card style="height: 40px; background-color: #9abde4" class="d-flex">
           <div
             class="d-flex justify-start align-center"
@@ -255,7 +255,29 @@
           </div>
         </v-card>
       </v-col>
-      <v-col :md="6" :sm="12" class="mt-1">
+      <v-col :md="4" :sm="12" class="mt-1">
+        <v-card
+          class="ml-2 d-flex"
+          style="height: 40px; background-color: #9abde4"
+        >
+          <div
+            class="d-flex justify-start align-center"
+            style="width: 25%; height: 100%"
+          >
+            <span class="ml-2">登入密碼: </span>
+            <!-- regs time -->
+          </div>
+          <div
+            class="d-flex justify-start align-center"
+            style="width: 75%; height: 100%"
+          >
+            <span class="ml-2" style="font-weight: bold; max-width: 97%">
+              {{ memberInfo.password }}</span
+            >
+          </div>
+        </v-card>
+      </v-col>
+      <v-col :md="4" :sm="12" class="mt-1">
         <v-card
           class="ml-2 d-flex"
           style="height: 40px; background-color: #9abde4"
