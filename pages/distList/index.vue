@@ -143,7 +143,7 @@
                 >⇊</span
               >
             </v-col>
-            <v-col cols="3">
+            <v-col cols="2">
               <span
                 @click="changeOrder(`amount`, `asc`)"
                 :style="{
@@ -160,7 +160,10 @@
                 }"
                 >⇊</span>
             </v-col>
-            <v-col cols="3">類型</v-col>
+            <v-col cols="2">
+              會員餘額
+            </v-col>
+            <v-col cols="2">類型</v-col>
           </v-row>
           <hr
             class="mx-4"
@@ -174,8 +177,9 @@
           >
             <v-col cols="2">{{ member.acc_id }}</v-col>
             <v-col cols="4">{{ timestampToDate(member.time) }}</v-col>
-            <v-col cols="3">{{ member.amount }}</v-col>
-            <v-col cols="3">{{ $t("ledgerType_" + (member.type)) }}</v-col>
+            <v-col cols="2">{{ member.amount }}</v-col>
+            <v-col cols="2">{{ parseInt(member.game_balance / 1000000) }}</v-col>
+            <v-col cols="2">{{ $t("ledgerType_" + (member.type)) }}</v-col>
           </v-row>
         </v-card>
         <Pagination :pager="memberPager" @changePage="changePage" />

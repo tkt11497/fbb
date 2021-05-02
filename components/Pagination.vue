@@ -49,8 +49,9 @@ export default {
   },
   watch: {
     "pager.current_page": function (newValue, oldValue) {
-      if(oldValue)
-        this.$emit("changePage", this.pager.current_page);
+      if(oldValue != newValue){
+        this.$emit("changePage", parseInt(newValue));
+      }
     },
   },
 };

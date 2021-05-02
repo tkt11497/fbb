@@ -29,7 +29,7 @@
                   dense
                   append-icon="search"
                   v-model="searchMember"
-                  @click:append="searchMembers"
+                  @click:append="getMemberList"
                 >
                   <template v-slot:prepend>
                     <span
@@ -125,7 +125,7 @@ export default {
     return {
       memberRowset: [],
       memberPager: {},
-      searchMember: 0,
+      searchMember: "",
       page: 1,
       orderBy: "id",
       sort: "ASC",
@@ -138,6 +138,7 @@ export default {
     getMemberList() {
       axios
         .post(`${process.env.ApiUrl}/v1/back/accountlist`, {
+          member: this.searchMember,
           page: this.page,
           order: this.orderBy,
           sort: this.sort,
@@ -146,9 +147,6 @@ export default {
           this.memberRowset = res.data.data;
           this.memberPager = res.data.pager;
         });
-    },
-    searchMembers() {
-      this.$router.push(`/memberList/memberDetail/${this.searchMember}`);
     },
     changePage(pageNumber) {
       this.page = pageNumber;
