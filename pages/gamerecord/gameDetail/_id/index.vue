@@ -69,7 +69,7 @@
             class="d-flex justify-start align-center"
             style="width: 75%; height: 100%"
           >
-            <span class="ml-2" style="font-weight: bold">{{$t(`payoutBaby_${gameInfo.payout_baby}`)}}</span>
+            <span class="ml-2" style="font-weight: bold" v-if="gameInfo.winner_id != null">{{$t(`payoutBaby_${gameInfo.payout_baby}`)}}</span>
           </div>
         </v-card>
       </v-col>
